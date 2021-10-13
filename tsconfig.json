@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "ES2015",
+    "module": "ES2020",
+    "lib": ["es2017", "es7", "es6", "dom"],
+    "outDir": "./dist",
+    "declaration": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node"
+  },
+  "files": [
+    "src/index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
