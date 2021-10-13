@@ -105,6 +105,9 @@ class Queue<Payload> implements Omit<QuirrelClient<Payload>, "respondTo" | "make
     response.send(res.status, res.body);
   };
 
+  /**
+   * Worktop provides the `Headers` object, not `IncomingHttpHeaders` so we have to convert
+   */
   private headersToDict(headers: Headers): IncomingHttpHeaders {
     const dict: IncomingHttpHeaders = {};
 
