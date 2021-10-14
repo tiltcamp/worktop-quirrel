@@ -1,6 +1,6 @@
 import { IncomingHttpHeaders } from 'http';
 import { Handler, Router } from 'worktop';
-import { QuirrelClient } from './client';
+import { CreateQuirrelClientArgs, QuirrelClient } from './client';
 import {
   DefaultJobOptions,
   EnqueueJobOptions,
@@ -36,7 +36,7 @@ class Queue<Payload> implements Omit<QuirrelClient<Payload>, "respondTo" | "make
     handler: QuirrelJobHandler<Payload>,
     { defaultJobOptions, config }: {
       defaultJobOptions?: DefaultJobOptions,
-      config?: ConstructorParameters<typeof QuirrelClient>[0]['config']
+      config?: CreateQuirrelClientArgs[0]['config']
     } = {}
   ) {
     this.quirrel = new QuirrelClient<Payload>({

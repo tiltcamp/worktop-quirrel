@@ -1,7 +1,8 @@
 import { QuirrelClient as _QuirrelClient } from 'quirrel/client';
 
+export type CreateQuirrelClientArgs = ConstructorParameters<typeof _QuirrelClient>;
 export class QuirrelClient<Payload> extends _QuirrelClient<Payload> {
-  constructor(...args: ConstructorParameters<typeof _QuirrelClient>) {
+  constructor(...args: CreateQuirrelClientArgs) {
     /*
       Without explicitly passing `fetch`, `cross-fetch` raises an error about XMLHttpRequest not being found
      */
