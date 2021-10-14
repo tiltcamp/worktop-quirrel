@@ -15,7 +15,7 @@ import {
  */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-self.process.env = self;
+self.process = { env: self };
 
 /*
   Without defining `window`, Workers will raise `window is not defined`.
