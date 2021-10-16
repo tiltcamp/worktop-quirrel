@@ -5,7 +5,8 @@
   "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "patches/**/*"
   ],
   "scripts": {
     "lint": "npx eslint ./src --ext .ts,.js --max-warnings 0",
