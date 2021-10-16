@@ -27,14 +27,14 @@
   },
   "dependencies": {
     "quirrel": "^1.7.2-0",
-    "worktop": "^0.7.3"
+    "worktop": "^0.7.3",
+    "patch-package": "^6.4.7"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.0",
     "eslint-plugin-import": "^2.25.1",
-    "patch-package": "^6.4.7",
     "rollup": "^2.58.0",
     "rollup-plugin-typescript2": "^0.30.0",
     "typescript": "^4.4.4"
