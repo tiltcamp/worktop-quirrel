@@ -15,7 +15,7 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
     "postpublish": "git push && git push --tags",
-    "postinstall": "patch-package"
+    "postinstall": "test -d \"../../node_modules/worktop-quirrel/patches\" && (cd ../../ && npx patch-package --patch-dir \"node_modules/worktop-quirrel/patches\") || npx patch-package"
   },
   "repository": {
     "type": "git",
