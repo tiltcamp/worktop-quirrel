@@ -1,0 +1,64 @@
+diff --git a/node_modules/quirrel/dist/cjs/src/api/worker/index.js b/node_modules/quirrel/dist/cjs/src/api/worker/index.js
+index e9a418b..8825502 100644
+--- a/node_modules/quirrel/dist/cjs/src/api/worker/index.js
++++ b/node_modules/quirrel/dist/cjs/src/api/worker/index.js
+@@ -55,12 +55,12 @@ async function createWorker({ redisFactory, enableUsageMetering, runningInDocker
+         if (tokenId) {
+             const payload = body !== null && body !== void 0 ? body : "";
+             if (webhookSigningPrivateKey) {
+-                headers["x-quirrel-signature"] = secure_webhooks_1.asymmetric.sign(payload, webhookSigningPrivateKey);
++                headers["x-quirrel-signature"] = await secure_webhooks_1.asymmetric.sign(payload, webhookSigningPrivateKey);
+             }
+             else {
+                 const token = await (tokenRepo === null || tokenRepo === void 0 ? void 0 : tokenRepo.getById(tokenId));
+                 if (token) {
+-                    headers["x-quirrel-signature"] = secure_webhooks_1.symmetric.sign(payload, token);
++                    headers["x-quirrel-signature"] = await secure_webhooks_1.symmetric.sign(payload, token);
+                 }
+             }
+         }
+diff --git a/node_modules/quirrel/dist/cjs/src/client/index.js b/node_modules/quirrel/dist/cjs/src/client/index.js
+index 631dbe2..405d88e 100644
+--- a/node_modules/quirrel/dist/cjs/src/client/index.js
++++ b/node_modules/quirrel/dist/cjs/src/client/index.js
+@@ -337,7 +337,7 @@ class QuirrelClient {
+                     body: "Signature missing",
+                 };
+             }
+-            if (!this.isValidSignature(body, signature)) {
++            if (!await this.isValidSignature(body, signature)) {
+                 return {
+                     status: 401,
+                     headers: {},
+diff --git a/node_modules/quirrel/dist/esm/src/api/worker/index.js b/node_modules/quirrel/dist/esm/src/api/worker/index.js
+index 9204f8a..62b5cb7 100644
+--- a/node_modules/quirrel/dist/esm/src/api/worker/index.js
++++ b/node_modules/quirrel/dist/esm/src/api/worker/index.js
+@@ -48,12 +48,12 @@ export async function createWorker({ redisFactory, enableUsageMetering, runningI
+         if (tokenId) {
+             const payload = body !== null && body !== void 0 ? body : "";
+             if (webhookSigningPrivateKey) {
+-                headers["x-quirrel-signature"] = asymmetric.sign(payload, webhookSigningPrivateKey);
++                headers["x-quirrel-signature"] = await asymmetric.sign(payload, webhookSigningPrivateKey);
+             }
+             else {
+                 const token = await (tokenRepo === null || tokenRepo === void 0 ? void 0 : tokenRepo.getById(tokenId));
+                 if (token) {
+-                    headers["x-quirrel-signature"] = symmetric.sign(payload, token);
++                    headers["x-quirrel-signature"] = await symmetric.sign(payload, token);
+                 }
+             }
+         }
+diff --git a/node_modules/quirrel/dist/esm/src/client/index.js b/node_modules/quirrel/dist/esm/src/client/index.js
+index 0769780..d0e4b81 100644
+--- a/node_modules/quirrel/dist/esm/src/client/index.js
++++ b/node_modules/quirrel/dist/esm/src/client/index.js
+@@ -312,7 +312,7 @@ export class QuirrelClient {
+                     body: "Signature missing",
+                 };
+             }
+-            if (!this.isValidSignature(body, signature)) {
++            if (!await this.isValidSignature(body, signature)) {
+                 return {
+                     status: 401,
+                     headers: {},
