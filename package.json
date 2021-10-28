@@ -3,6 +3,7 @@
   "version": "0.0.4",
   "description": "A Quirrel client for Worktop",
   "types": "dist/index.d.ts",
+  "main": "dist/index.js",
   "module": "dist/index.mjs",
   "files": [
     "dist/**/*",
@@ -11,7 +12,8 @@
   "scripts": {
     "lint": "npx eslint ./src --ext .ts,.js --max-warnings 0",
     "build:esm": "npx rollup -c",
-    "build": "rm -rf dist/ && npm run build:esm",
+    "build:cjs": "npx tsc --project tsconfig.cjs.json",
+    "build": "rm -rf dist/ && npm run build:esm && npm run build:cjs",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint",
     "postpublish": "git push && git push --tags",
@@ -32,6 +34,7 @@
     "patch-package": "^6.4.7"
   },
   "devDependencies": {
+    "@types/node": "^16.11.6",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.0",

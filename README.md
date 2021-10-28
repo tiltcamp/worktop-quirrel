@@ -10,7 +10,7 @@ This package is currently a work-in-progress and should not be used.
 
 # Example Usage
 ```typescript
-import { Router, Handler } from 'worktop';
+import { Router } from 'worktop';
 import * as Cache from 'worktop/cache';
 import { Queue } from 'worktop-quirrel';
 

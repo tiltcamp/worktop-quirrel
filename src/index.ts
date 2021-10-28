@@ -5,8 +5,21 @@ import {
   DefaultJobOptions,
   EnqueueJobOptions,
   Job,
+  JobMeta,
   QuirrelJobHandler
 } from 'quirrel/client';
+
+/*
+  In a Node testing environment, `self` is not available.
+ */
+try {
+  // noinspection BadExpressionStatementJS
+  self;
+} catch (e) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  globalThis.self = globalThis;
+}
 
 /*
   Without defining `process`, Workers will raise `process is not defined`.
@@ -26,9 +39,11 @@ self.process = { env: self };
  */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+// noinspection JSConstantReassignment
 self.window = self;
 
 class Queue<Payload> implements Omit<QuirrelClient<Payload>, "respondTo" | "makeRequest"> {
+  public readonly call: QuirrelJobHandler<Payload>;
   private readonly quirrel: QuirrelClient<Payload>;
 
   constructor(
@@ -39,12 +54,13 @@ class Queue<Payload> implements Omit<QuirrelClient<Payload>, "respondTo" | "make
       config?: CreateQuirrelClientArgs[0]['config']
     } = {}
   ) {
+    this.call = handler;
     this.quirrel = new QuirrelClient<Payload>({
       /*
         The `ConstructorParameters` type in `./client.ts` doesn't handle the generic well so we have to cast to `unknown`.
         Would be resolved by `quirrel` exporting `CreateQuirrelClientArgs`. Also see https://stackoverflow.com/q/68415541
        */
-      handler: handler as QuirrelJobHandler<unknown>,
+      handler: this.call as QuirrelJobHandler<unknown>,
       route,
       defaultJobOptions,
       config
@@ -120,7 +136,8 @@ class Queue<Payload> implements Omit<QuirrelClient<Payload>, "respondTo" | "make
 export {
   Queue,
   Job,
+  JobMeta,
   EnqueueJobOptions,
   DefaultJobOptions,
-  QuirrelJobHandler,
+  QuirrelJobHandler
 };
