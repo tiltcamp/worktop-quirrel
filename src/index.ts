@@ -28,7 +28,7 @@ try {
  */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-self.process = { env: self };
+if (!self.process) self.process = { env: self };
 
 /*
   Without defining `window`, Workers will raise `window is not defined`.
@@ -40,7 +40,7 @@ self.process = { env: self };
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // noinspection JSConstantReassignment
-self.window = self;
+if (!self.window) self.window = self;
 
 class Queue<Payload> implements Omit<QuirrelClient<Payload>, "respondTo" | "makeRequest"> {
   public readonly call: QuirrelJobHandler<Payload>;
